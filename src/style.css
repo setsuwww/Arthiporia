@@ -1,0 +1,298 @@
+@import "tailwindcss";
+
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('./assets/fonts/Satoshi-Variable.ttf') format('truetype');
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Orbitron';
+  src: url('./assets/fonts/Orbitron-VariableFont_wght.ttf') format('truetype');
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-satoshi: 'Satoshi', sans-serif;
+  --font-orbitron: 'Orbitron', sans-serif;
+}
+
+/* Default font */
+body {
+  font-family: var(--font-satoshi);
+}
+
+/* Heading font */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-orbitron);
+}
+
+/* Lighting */
+
+.ambient-glow {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 50%;
+  width: 75%;
+  height: 65%;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at top,
+    rgba(255, 255, 255, 0.07),
+    rgba(255, 255, 255, 0.018) 35%,
+    transparent 72%
+  );
+  pointer-events: none;
+}
+
+@keyframes light-breathe {
+  from {
+    opacity: 0.65;
+    transform: translateY(0) rotate(15deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(30px) rotate(10deg);
+  }
+}
+
+/* Hero Animation */
+
+.hero-enter {
+  animation: hero-enter 1.2s cubic-bezier(.2,.7,.2,1) both;
+}
+
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(35px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-line {
+  animation: line-enter 1.5s 0.5s both;
+}
+
+@keyframes line-enter {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Logo Glow */
+
+.logo-glow {
+  filter: drop-shadow(0 0 18px rgba(255,255,255,.14))
+          drop-shadow(0 0 35px rgba(120,235,225,.08));
+
+  animation: logo-glow 5s ease-in-out infinite alternate;
+}
+
+/* Menu Grid */
+
+.menu-trigger span {
+  width: 4px;
+  height: 4px;
+  background: #f5f5f5;
+  transition: all .3s ease;
+}
+
+.menu-trigger:hover span {
+  background: #8ce8e2;
+}
+
+.menu-trigger.active span:nth-child(odd) {
+  opacity: .3;
+}
+
+/* Orbital Rings */
+
+.orbit {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(230,239,239,.62);
+  border-radius: 50%;
+  transform: scaleY(.45);
+}
+
+.orbit-one {
+  animation: orbit-breathe 6s ease-in-out infinite alternate;
+}
+
+.orbit-two {
+  inset: 12px 25px;
+  border-color: rgba(230,239,239,.48);
+}
+
+.orbit-three {
+  inset: 24px 50px;
+  border-color: rgba(230,239,239,.35);
+}
+
+@keyframes orbit-breathe {
+  from {
+    opacity: .15;
+  }
+
+  to {
+    opacity: .35;
+  }
+}
+
+/* Navigation Transition */
+
+.menu-enter-active,
+.menu-leave-active {
+  transition: opacity .35s ease;
+}
+
+.menu-enter-from,
+.menu-leave-to {
+  opacity: 0;
+}
+
+/* Desktop Orbital Adjustment */
+
+@media (min-width: 768px) {
+  .orbit-two {
+    inset: 18px 35px;
+  }
+
+  .orbit-three {
+    inset: 36px 70px;
+  }
+}
+
+/* Small Screen */
+
+@media (max-width: 380px) {
+  .orbital-system {
+    width: 125vw;
+  }
+}
+
+/* Accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* =================================
+   ARTPHORIA VERTICAL SPOTLIGHT
+================================= */
+.logo-spotlight {
+  position: absolute;
+  z-index: 1;
+
+  top: -100vh;
+  left: 50%;
+
+  width: 300px;
+  height: calc(100vh + 350px);
+
+  transform: translateX(-50%);
+
+  background: linear-gradient(
+    to bottom,
+    rgba(250, 247, 246, 0) 0%,
+    rgba(250, 247, 246, 0.015) 35%,
+    rgba(250, 247, 246, 0.045) 65%,
+    rgba(250, 247, 246, 0.055) 82%,
+    rgba(250, 247, 246, 0.025) 95%,
+    rgba(250, 247, 246, 0) 100%
+  );
+
+  clip-path: polygon(
+    38% 0%,
+    62% 0%,
+    100% 100%,
+    0% 100%
+  );
+
+  filter: blur(42px);
+  pointer-events: none;
+
+  animation: spotlight-flicker 8s ease-in-out infinite;
+}
+
+@keyframes spotlight-flicker {
+  0%, 100% {
+    opacity: 0.55;
+    filter: blur(42px);
+  }
+
+  25% {
+    opacity: 0.7;
+    filter: blur(46px);
+  }
+
+  50% {
+    opacity: 0.48;
+    filter: blur(40px);
+  }
+
+  75% {
+    opacity: 0.65;
+    filter: blur(44px);
+  }
+}
+
+/* ambient glow around logo */
+
+.logo-glow {
+  filter:
+    drop-shadow(0 0 8px rgba(250, 247, 246, 0.22))
+    drop-shadow(0 0 22px rgba(250, 247, 246, 0.12));
+
+  animation: logo-night-glow 6s ease-in-out infinite alternate;
+}
+
+@keyframes logo-night-glow {
+  from {
+    filter:
+      drop-shadow(0 0 6px rgba(250, 247, 246, 0.16))
+      drop-shadow(0 0 18px rgba(250, 247, 246, 0.08));
+  }
+
+  to {
+    filter:
+      drop-shadow(0 0 11px rgba(250, 247, 246, 0.28))
+      drop-shadow(0 0 26px rgba(250, 247, 246, 0.15));
+  }
+}
+
+/* Mobile adjustment */
+
+@media (max-width: 768px) {
+  .logo-spotlight {
+    width: 150px;
+  }
+}
